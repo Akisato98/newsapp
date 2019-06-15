@@ -24,11 +24,16 @@ class ViewController: SegementSlideViewController {
     }
     
     override var headerView: UIView? {
-        return UIView()
+        
+        let headerView = UIImageView()
+        headerView.isUserInteractionEnabled = true
+        headerView.contentMode = .scaleAspectFill
+        headerView.image = UIImage(named: "header")
+        return headerView
     }
     
     override var titlesInSwitcher: [String] {
-        return ["Swift", "Ruby", "Kotlin", "JavaScript", "Python", "Ajax"]
+        return ["01", "02", "03", "04", "05", "06"]
     }
     
     override func segementSlideContentViewController(at index: Int) -> SegementSlideContentScrollViewDelegate? {

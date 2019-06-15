@@ -99,10 +99,11 @@ extension SegementSlideViewController {
         segementSlideSwitcherView.config = switcherConfig
     }
     
+    //高さで、隙間が空くので-5する
     internal func layoutSegementSlideScrollView() {
         let innerHeaderHeight: CGFloat
         if let _ = innerHeaderView, let height = self.innerHeaderHeight {
-            innerHeaderHeight = height
+            innerHeaderHeight = height - 5
         } else {
             innerHeaderHeight = 0
         }

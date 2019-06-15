@@ -23,14 +23,15 @@ class Page1ViewController: UITableViewController, SegementSlideContentScrollView
         tableView.backgroundColor = .clear
         
         //コードで背景の画像貼る
-        let image = UIImage(named: "")
+        let image = UIImage(named: "0.jpg")
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.size.width, height: self.tableView.frame.size.height))
         imageView.image = image
         self.tableView.backgroundView = imageView
         // Do any additional setup after loading the view.
         
         //yahoo!のRSS(hxxtps://headlines.yahoo.co.jp/rss/list)貼る
-        let urlString: String = "https://news.yahoo.co.jp/pickup/rss.xml"
+        //なぜかRSS読まない。。
+        let urlString: String = "https://news.yahoo.co.jp/pickup/computer/rss.xml"
         let url: URL = URL(string: urlString)!
         parser = XMLParser(contentsOf: url)!
         parser.delegate = self
@@ -74,8 +75,39 @@ class Page1ViewController: UITableViewController, SegementSlideContentScrollView
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         if self.newsItems.count > 0 {
+            //記事を表示(タイトル、URL、日付PubDate)とか
+            //上で0以上にしてるので、-1にしないと0番目から数えられない
+            let lastItem = self.newsItems[self.newsItems.count - 1]
+            switch self.currentElementName {
+            case "title":
+                lastItem.title = string
+            case "link":
+                lastItem.url = string
+            case "PubDate":
+                lastItem.pubDate = string
+                print(lastItem.pubDate as Any)
+            default:break
+            }
             
         }
+    }
+    //didEndElement書く
+    func parser(_ parser: XMLParser, didEndElement elementName: String, newspaceURI: String?, qualifiedName qName: String?) {
+        self.currentElementName = nil
+    }
+    
+    func parserDidEndDocument(_ parser: XMLParser) {
+        self.tableView.reloadData()
+    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //WebViewに画面遷移した先で取得したURL表示したいのでWebViewController作る
+        let webViewController: UIViewController = WebViewController()
+        //WebViewControllerに遷移
+        webViewController.modalTransitionStyle = .crossDissolve
+        let newsItem = newsItems[indexPath.row]
+        UserDefaults.standard.set(newsItem.url, forKey: "url")
+        
+        self.present(webViewController, animated: true, completion: nil)
     }
     
     }
