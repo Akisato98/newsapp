@@ -33,7 +33,7 @@ class ViewController: SegementSlideViewController {
     }
     
     override var titlesInSwitcher: [String] {
-        return ["01", "02", "03", "04", "05", "06"]
+        return ["Yahoo!ニュース", "いぬのきもち", "BUSINESS INSIDER JAPAN ", "ねこのきもち", "WIRED.jp", "VOGUE"]
     }
     
     override func segementSlideContentViewController(at index: Int) -> SegementSlideContentScrollViewDelegate? {
@@ -42,15 +42,15 @@ class ViewController: SegementSlideViewController {
             case 0:
             return Page1ViewController()
             case 1:
-            return Page1ViewController()
+            return Page2ViewController()
             case 2:
-            return Page1ViewController()
+            return Page3ViewController()
             case 3:
-            return Page1ViewController()
+            return Page4ViewController()
             case 4:
-            return Page1ViewController()
+            return Page5ViewController()
             case 5:
-            return Page1ViewController()
+            return Page6ViewController()
         default:
             return Page1ViewController()
         }

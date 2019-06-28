@@ -28,7 +28,7 @@ class WebViewController: UIViewController, WKUIDelegate {
         self.view.addSubview(button)
         
         let urlString = UserDefaults.standard.object(forKey: "url")
-        //AnyからSTringにURLを戻す処理
+        //AnyからStringにURLを戻す処理
         let url = URL(string: urlString! as! String)
         let request = URLRequest(url: url!)
         webView.load(request)

@@ -9,21 +9,21 @@
 import UIKit
 import SegementSlide
 
-class Page1ViewController: UITableViewController, SegementSlideContentScrollViewDelegate, XMLParserDelegate {
+class Page3ViewController: UITableViewController, SegementSlideContentScrollViewDelegate, XMLParserDelegate {
     
     //XMLParserDelegateのインスタンス作る
     var parser = XMLParser()
     var newsItems = [NewsItems]()
     //RSSのパースの中の現在の要素の名前
     var currentElementName:String!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.backgroundColor = .clear
         
         //コードで背景の画像貼る
-        let image = UIImage(named: "0.jpg")
+        let image = UIImage(named: "2.jpg")
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.size.width, height: self.tableView.frame.size.height))
         imageView.image = image
         self.tableView.backgroundView = imageView
@@ -31,7 +31,7 @@ class Page1ViewController: UITableViewController, SegementSlideContentScrollView
         
         //yahoo!のRSS(hxxtps://headlines.yahoo.co.jp/rss/list)貼る
         //なぜかRSS読まない。。
-        let urlString: String = "https://news.yahoo.co.jp/pickup/computer/rss.xml"
+        let urlString: String = "https://headlines.yahoo.co.jp/rss/binsider-c_int.xml"
         let url: URL = URL(string: urlString)!
         parser = XMLParser(contentsOf: url)!
         parser.delegate = self
@@ -51,7 +51,7 @@ class Page1ViewController: UITableViewController, SegementSlideContentScrollView
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) ->
         Int {
             return newsItems.count
-        }
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
@@ -80,24 +80,6 @@ class Page1ViewController: UITableViewController, SegementSlideContentScrollView
         }
     }
     
-//    func parser(_ parser: XMLParser, foundCharacters string: String) {
-//        if self.newsItems.count > 0 {
-//            //記事を表示(タイトル、URL、日付PubDate)とか
-//            //上で0以上にしてるので、-1にしないと0番目から数えられない
-//            let lastItem = self.newsItems[self.newsItems.count - 1]
-//            switch self.currentElementName {
-//            case "title":
-//                lastItem.title = string
-//            case "link":
-//                lastItem.url = string
-//            case "PubDate":
-//                lastItem.pubDate = string
-//                print(lastItem.pubDate as Any)
-//            default:break
-//            }
-//        }
-//    }
-    
     //func parser(XMLParser, foundCharacters: String)...> 現在の要素の文字の全部または一部を表す文字列をデリゲートに提供するために、パーサーオブジェクトによって送信されます。
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         if self.newsItems.count > 0 {
@@ -108,7 +90,7 @@ class Page1ViewController: UITableViewController, SegementSlideContentScrollView
             if string.elementsEqual("\n") {
                 return
                 // 追加ここまで
-
+                
             }
             switch self.currentElementName {
             case "title":
@@ -142,5 +124,5 @@ class Page1ViewController: UITableViewController, SegementSlideContentScrollView
         self.present(webViewController, animated: true, completion: nil)
     }
     
-    }
+}
 
