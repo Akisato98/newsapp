@@ -30,7 +30,7 @@ class Page1ViewController: UITableViewController, SegementSlideContentScrollView
         // Do any additional setup after loading the view.
         
         //yahoo!のRSS(hxxtps://headlines.yahoo.co.jp/rss/list)貼る
-        //なぜかRSS読まない。。
+
         let urlString: String = "https://news.yahoo.co.jp/pickup/computer/rss.xml"
         let url: URL = URL(string: urlString)!
         parser = XMLParser(contentsOf: url)!
@@ -98,17 +98,16 @@ class Page1ViewController: UITableViewController, SegementSlideContentScrollView
 //        }
 //    }
     
-    //func parser(XMLParser, foundCharacters: String)...> 現在の要素の文字の全部または一部を表す文字列をデリゲートに提供するために、パーサーオブジェクトによって送信されます。
+    //func parser(XMLParser, foundCharacters: String)...> 現在の要素の文字の全部または一部を表す文字列をデリゲートに提供するために、パーサーオブジェクトによって送信される。
+    //xml,parserの理屈が難しい。。
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         if self.newsItems.count > 0 {
             //記事を表示(タイトル、URL、日付PubDate)とか
             //上で0以上にしてるので、-1にしないと0番目から数えられない
             let lastItem = self.newsItems[self.newsItems.count - 1]
-            // 追加
+
             if string.elementsEqual("\n") {
                 return
-                // 追加ここまで
-
             }
             switch self.currentElementName {
             case "title":

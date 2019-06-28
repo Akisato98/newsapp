@@ -81,18 +81,17 @@ class Page2ViewController: UITableViewController, SegementSlideContentScrollView
         }
     }
     
-    //func parser(XMLParser, foundCharacters: String)...> 現在の要素の文字の全部または一部を表す文字列をデリゲートに提供するために、パーサーオブジェクトによって送信されます。
+    //func parser(XMLParser, foundCharacters: String)...> 現在の要素の文字の全部または一部を表す文字列をデリゲートに提供するために、パーサーオブジェクトによって送信される
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         if self.newsItems.count > 0 {
             //記事を表示(タイトル、URL、日付PubDate)とか
             //上で0以上にしてるので、-1にしないと0番目から数えられない
             let lastItem = self.newsItems[self.newsItems.count - 1]
-            // 追加
+
             if string.elementsEqual("\n") {
                 return
-                // 追加ここまで
-                
             }
+            
             switch self.currentElementName {
             case "title":
                 lastItem.title = string
